@@ -18,9 +18,9 @@ void setup() {
 
 void loop() {
   // Some example procedures showing how to display to the pixels:
-  colorWipe(strip.Color(255, 0, 0), 50); // Red
-  colorWipe(strip.Color(0, 255, 0), 50); // Green
-  colorWipe(strip.Color(0, 0, 255), 50); // Blue
+  colorWipe(Adafruit_NeoPixel::Color(255, 0, 0), 50); // Red
+  colorWipe(Adafruit_NeoPixel::Color(0, 255, 0), 50); // Green
+  colorWipe(Adafruit_NeoPixel::Color(0, 0, 255), 50); // Blue
   rainbow(20);
   rainbowCycle(20);
 }
@@ -63,13 +63,13 @@ void rainbowCycle(uint8_t wait) {
 // The colours are a transition r - g - b - back to r.
 uint32_t Wheel(byte WheelPos) {
   if(WheelPos < 85) {
-   return strip.Color(WheelPos * 3, 255 - WheelPos * 3, 0);
+   return Adafruit_NeoPixel::Color(WheelPos * 3, 255 - WheelPos * 3, 0);
   } else if(WheelPos < 170) {
    WheelPos -= 85;
-   return strip.Color(255 - WheelPos * 3, 0, WheelPos * 3);
+   return Adafruit_NeoPixel::Color(255 - WheelPos * 3, 0, WheelPos * 3);
   } else {
    WheelPos -= 170;
-   return strip.Color(0, WheelPos * 3, 255 - WheelPos * 3);
+   return Adafruit_NeoPixel::Color(0, WheelPos * 3, 255 - WheelPos * 3);
   }
 }
 

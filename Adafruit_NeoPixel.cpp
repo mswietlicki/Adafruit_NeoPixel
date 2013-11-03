@@ -909,6 +909,74 @@ void Adafruit_NeoPixel::setPixelColor(uint16_t n, uint32_t c) {
   }
 }
 
+// Shift the pixels in the array by varying degrees
+// Useful helper function for marquees
+void Adafruit_NeoPixel::shift(int16_t distance)
+{
+    uint16_t i;
+    
+    if(distance == 0)
+    {
+        return;
+    }
+    if(abs(distance) > numLEDs)
+    {
+        distance = numLEDs;
+    }
+        
+    if(distance < 0)
+    {
+        for(i = 0; i < numLEDs; i++)
+        {
+            uint16_t copyFromLed = i - distance;
+            uint16_t copyToLed = i;
+            
+            if(copyFromLed >= numLEDs)
+            {
+                uint8_t* copyToPtr   = &pixels[copyToLed * 3];
+                copyToPtr[0] = 0;
+                copyToPtr[1] = 0;
+                copyToPtr[2] = 0;
+            }
+            else
+            {
+                uint8_t* copyFromPtr = &pixels[copyFromLed * 3];
+                uint8_t* copyToPtr   = &pixels[copyToLed * 3];
+
+                copyToPtr[0] = copyFromPtr[0];
+                copyToPtr[1] = copyFromPtr[1];
+                copyToPtr[2] = copyFromPtr[2];
+            }
+        }
+    }
+    else
+    {
+        for(i = 0; i < numLEDs; i++)
+        {
+            int16_t copyFromLed = (numLEDs-1)-i-distance;
+            int16_t copyToLed = (numLEDs-1)-i;
+
+            if(copyFromLed < 0)
+            {
+                uint8_t* copyToPtr   = &pixels[copyToLed * 3];
+                copyToPtr[0] = 0;
+                copyToPtr[1] = 0;
+                copyToPtr[2] = 0;
+            }
+            else
+            {
+                uint8_t* copyFromPtr = &pixels[copyFromLed * 3];
+                uint8_t* copyToPtr   = &pixels[copyToLed * 3];
+
+                copyToPtr[0] = copyFromPtr[0];
+                copyToPtr[1] = copyFromPtr[1];
+                copyToPtr[2] = copyFromPtr[2];
+            }
+        }
+    }
+}
+
+
 // Convert separate R,G,B into packed 32-bit RGB color.
 // Packed format is always RGB, regardless of LED strand color order.
 uint32_t Adafruit_NeoPixel::Color(uint8_t r, uint8_t g, uint8_t b) {

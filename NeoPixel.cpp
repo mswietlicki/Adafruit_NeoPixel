@@ -31,7 +31,7 @@
   <http://www.gnu.org/licenses/>.
   -------------------------------------------------------------------------*/
 
-#include "Adafruit_NeoPixel.h"
+#include "NeoPixel.h"
 
 Adafruit_NeoPixel::Adafruit_NeoPixel(uint16_t n, uint8_t p, uint8_t t) : numLEDs(n), numBytes(n * 3), pin(p), pixels(NULL)
 #if defined(NEO_RGB) || defined(NEO_KHZ400)
@@ -51,18 +51,6 @@ Adafruit_NeoPixel::~Adafruit_NeoPixel() {
   if(pixels) free(pixels);
   pinMode(pin, INPUT);
 }
-
-#ifdef __MK20DX128__ // Teensy 3.0
-static inline void delayShort(uint32_t) __attribute__((always_inline, unused));
-static inline void delayShort(uint32_t num) {
-  asm volatile(
-    "L_%=_delay:"       "\n\t"
-    "subs   %0, #1"     "\n\t"
-    "bne    L_%=_delay" "\n"
-    : "+r" (num) :
-  );
-}
-#endif // __arm__
 
 void Adafruit_NeoPixel::begin(void) {
   pinMode(pin, OUTPUT);

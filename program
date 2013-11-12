@@ -1,0 +1,8 @@
+#!/bin/bash
+rm NeoPixel.o NeoPixel.elf NeoPixel.hex
+
+avr-gcc -Os -DF_CPU=8000000UL -mmcu=atmega8 -c NeoPixel.cpp
+avr-gcc -mmcu=atmega8 -o NeoPixel.elf NeoPixel.o
+avr-objcopy -O ihex -R .eeprom NeoPixel.elf NeoPixel.hex
+avr-objcopy -I ihex NeoPixel.hex -O binary NeoPixel.bin
+#sudo avrdude -p t85 -c usbasp -P usb -U lfuse:w:0xe2:m -U hfuse:w:0xdd:m -U efuse:w:0xff:m -U flash:w:NeoPixel.hex

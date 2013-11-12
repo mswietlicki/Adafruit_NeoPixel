@@ -19,12 +19,11 @@
 #ifndef NEOPIXEL_H
 #define NEOPIXEL_H
 
-#if (ARDUINO >= 100)
- #include <Arduino.h>
-#else
- #include <WProgram.h>
- #include <pins_arduino.h>
-#endif
+#define F_CPU 8000000UL
+
+#include <avr/io.h>
+#include <util/delay.h>
+#include <stdlib.h>
 
 // 'type' flags for LED pixels (third parameter to constructor):
 #define NEO_GRB     0x01 // Wired for GRB data order

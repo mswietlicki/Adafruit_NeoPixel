@@ -7,8 +7,8 @@
 //#include <avr/cpufunc.h>
 
 
-#define numLEDs 1;
-#define numBytes 3;
+#define numLEDs 1
+#define numBytes 3
 #define LEDPin 4
 
 uint8_t pixels[numBytes] = { 0 };

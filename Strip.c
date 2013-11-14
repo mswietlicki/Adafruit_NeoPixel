@@ -149,17 +149,17 @@ int main(void){
 
 	while (1){
 		SetPixel(index, 255, 0, 0);
-		SetPixel(intloop(index + 10), 0, 255, 0);
-		SetPixel(intloop(index + 20), 255, 255, 0);
-		SetPixel(intloop(index + 30), 255, 255, 255);
+		SetPixel(intloop(index + 20), 0, 255, 0);
+		SetPixel(intloop(index + 40), 255, 255, 0);
+		SetPixel(intloop(index + 60), 255, 255, 255);
 		Show();
 
-		_delay_ms(10);
+		_delay_ms(1);
 
 		SetPixel(index, 0, 0, 0);
-		SetPixel(intloop(index + 10), 0, 0, 0);
 		SetPixel(intloop(index + 20), 0, 0, 0);
-		SetPixel(intloop(index + 30), 0, 0, 0);
+		SetPixel(intloop(index + 40), 0, 0, 0);
+		SetPixel(intloop(index + 60), 0, 0, 0);
 
 		Show();
 

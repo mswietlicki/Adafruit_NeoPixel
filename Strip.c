@@ -4,8 +4,8 @@
 #include <util/delay.h>
 #include <stdlib.h>
 
-#define numLEDs 144
-#define numBytes 432
+#define numLEDs 72
+#define numBytes 216
 #define LEDPin 4
 
 //GRB
@@ -34,7 +34,7 @@ void Begin(){
 inline void Show(){
 	PORTD &= ~pinMask;
 	//Reset strip signal
-	_delay_us(100);
+	_delay_us(50);
 
 	volatile uint16_t
 		i = numBytes;	// Loop counter

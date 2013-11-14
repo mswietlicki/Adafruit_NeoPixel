@@ -4,43 +4,14 @@
 #include <util/delay.h>
 #include <stdlib.h>
 
-#define numLEDs 30
-#define numBytes 90
+#define numLEDs 144
+#define numBytes 432
 #define LEDPin 4
 
 //GRB
 uint8_t pixels[numBytes] =
-{ 
-	255, 0, 0,
-	255, 0, 0,
-	255, 0, 0,
-	255, 0, 0,
-	0, 0, 0,
-	255, 0, 0,
-	255, 0, 0,
-	255, 0, 0,
-	255, 0, 0,
-	255, 0, 0,
-	0, 255, 0,
-	0, 255, 0,
-	0, 255, 0,
-	0, 255, 0,
-	0, 0, 0,
-	0, 0, 0,
-	0, 255, 0,
-	0, 255, 0,
-	0, 255, 0,
-	0, 255, 0,
-	0, 0, 255,
-	0, 0, 255,
-	0, 0, 255,
-	0, 0, 0,
-	0, 0, 0,
-	0, 0, 255,
-	0, 0, 255,
-	0, 0, 255,
-	0, 0, 255,
-	0, 0, 255,
+{
+	0
 };
 
 uint8_t pin = LEDPin;
@@ -48,14 +19,16 @@ uint8_t pinMask = _BV(LEDPin);
 
 void SetPixel(uint8_t i, uint8_t r, uint8_t g, uint8_t b){
 	uint8_t ix = i * 3;
-	pixels[ix] = r;
-	pixels[ix + 1] = g;
+	pixels[ix] = g;
+	pixels[ix + 1] = r;
 	pixels[ix + 2] = b;
 }
 
 void Begin(){
 	PORTD &= ~pinMask;
 	DDRD |= pinMask;
+
+
 }
 
 inline void Show(){
@@ -166,6 +139,13 @@ int main(void){
 	Begin();
 
 	while (1){
+		uint8_t index = 0;
+
+		SetPixel(index++, 255, 0, 0);
+
+		if (index >= numLEDs)
+			index = 0;
+
 		Show();
 	}
 	return 0;

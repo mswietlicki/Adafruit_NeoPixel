@@ -135,18 +135,31 @@ inline void Show(){
 		[lo]     "r" (lo));
 }
 
+int intloop(int index)
+{
+	if (index < numLEDs)
+		return index;
+	else
+		return index - numLEDs;
+}
+
 int main(void){
 	Begin();
 	uint8_t index = 0;
 
 	while (1){
 		SetPixel(index, 255, 0, 0);
-
+		SetPixel(intloop(index + 10), 255, 0, 0);
+		SetPixel(intloop(index + 20), 255, 0, 0);
+		SetPixel(intloop(index + 30), 255, 0, 0);
 		Show();
 
 		_delay_ms(10);
 
 		SetPixel(index, 0, 0, 0);
+		SetPixel(intloop(index + 10), 0, 0, 0);
+		SetPixel(intloop(index + 20), 0, 0, 0);
+		SetPixel(intloop(index + 30), 0, 0, 0);
 
 		Show();
 

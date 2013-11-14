@@ -137,10 +137,9 @@ inline void Show(){
 
 int main(void){
 	Begin();
+	uint8_t index = 0;
 
 	while (1){
-		uint8_t index = 0;
-
 		SetPixel(index++, 255, 0, 0);
 
 		if (index >= numLEDs)

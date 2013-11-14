@@ -140,16 +140,22 @@ int main(void){
 	uint8_t index = 0;
 
 	while (1){
+		SetPixel(index, 255, 0, 0);
+
+		Show();
+
+		_delay_ms(10);
+
 		SetPixel(index, 0, 0, 0);
 
 		Show();
 
+		index++;
+
 		if (index >= numLEDs)
 			index = 0;
 
-		SetPixel(index++, 255, 0, 0);
 
-		Show();
 	}
 	return 0;
 }

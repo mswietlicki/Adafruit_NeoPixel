@@ -34,7 +34,7 @@ void Begin(){
 inline void Show(){
 	PORTD &= ~pinMask;
 	//Reset strip signal
-	_delay_us(50);
+	_delay_us(100);
 
 	volatile uint16_t
 		i = numBytes;	// Loop counter

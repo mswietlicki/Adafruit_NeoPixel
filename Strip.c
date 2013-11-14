@@ -144,12 +144,12 @@ int main(void){
 
 		Show();
 
+		if (index >= numLEDs)
+			index = 0;
+
 		SetPixel(index++, 255, 0, 0);
 
 		Show();
-
-		if (index >= numLEDs)
-			index = 0;
 	}
 	return 0;
 }

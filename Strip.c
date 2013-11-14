@@ -7,8 +7,8 @@
 //#include <avr/cpufunc.h>
 
 
-#define numLEDs 1
-#define numBytes 3
+#define numLEDs 6
+#define numBytes 18
 #define LEDPin 4
 
 uint8_t pixels[numBytes] = { 0 };
@@ -16,13 +16,23 @@ uint8_t pixels[numBytes] = { 0 };
 uint8_t pin = LEDPin;
 uint8_t pinMask = _BV(LEDPin);
 
+void SetPixel(uint8_t i, uint8_t r, uint8_t g, uint8_t b){
+	uint8_t ix = i * 3;
+	pixels[ix] = r;
+	pixels[ix+1] = g;
+	pixels[ix+2] = b;
+}
+
 void Begin(){
 	PORTD &= ~pinMask;
 	DDRD |= pinMask;
 
-	pixels[0] = 255;
-	pixels[1] = 0;
-	pixels[2] = 0;
+	SetPixel(0, 255, 0, 0);
+	SetPixel(1, 255, 0, 0);
+	SetPixel(2, 255, 255, 0);
+	SetPixel(3, 255, 255, 255);
+	SetPixel(4, 0, 255, 0);
+	SetPixel(5, 0, 0, 255);
 }
 
 //inline void SendHigh(){

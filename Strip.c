@@ -149,9 +149,9 @@ int main(void){
 
 	while (1){
 		SetPixel(index, 255, 0, 0);
-		SetPixel(intloop(index + 10), 255, 0, 0);
-		SetPixel(intloop(index + 20), 255, 0, 0);
-		SetPixel(intloop(index + 30), 255, 0, 0);
+		SetPixel(intloop(index + 10), 0, 255, 0);
+		SetPixel(intloop(index + 20), 255, 255, 0);
+		SetPixel(intloop(index + 30), 255, 255, 255);
 		Show();
 
 		_delay_ms(10);

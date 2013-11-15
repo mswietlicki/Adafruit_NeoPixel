@@ -143,44 +143,47 @@ int intloop(int index)
 		return index - numLEDs;
 }
 
+void DrawRainbow(uint8_t shift){
+	uint8_t i = 0;
+	uint8_t hn = 359 / (numLEDs - 1);
+
+	for (i = 0; i < numLEDs; i++)
+	{
+		int h = hn * i;
+		int a = (h % 120) * 4;
+		uint8_t x = 255 - abs(a - 255);
+
+		uint8_t ii = (i + shift) % numLEDs;
+		if (h < 60)
+			SetPixel(ii, 255, x, 0);
+		else if (h < 120)
+			SetPixel(ii, x, 255, 0);
+		else if (h < 180)
+			SetPixel(ii, 0, 255, x);
+		else if (h < 240)
+			SetPixel(ii, 0, x, 255);
+		else if (h < 320)
+			SetPixel(ii, x, 0, 255);
+		else
+			SetPixel(ii, 255, 0, x);
+	}
+}
+
 int main(void){
 	Begin();
-	uint8_t index = 0;
+	uint8_t shift = 0;
 
 	while (1){
 
-		uint8_t i = 0;
-		uint8_t hn = 359 / numLEDs;
-
-		for (i = 0; i < numLEDs; i++)
-		{
-			uint8_t ii = (i + index) % numLEDs;
-			int h = hn * i;
-			int a = (h % 120) * 4;
-			uint8_t x = 255 - abs(a - 255);
-
-			if (h < 60)
-				SetPixel(ii, 255, x, 0);
-			else if (h < 120)
-				SetPixel(ii, x, 255, 0);
-			else if (h < 180)
-				SetPixel(ii, 0, 255, x);
-			else if (h < 240)
-				SetPixel(ii, 0, x, 255);
-			else if (h < 320)
-				SetPixel(ii, x, 0, 255);
-			else
-				SetPixel(ii, 255, 0, x);
-		}
-
+		DrawRainbow(shift);
 		Show();
 
 		_delay_ms(1);
 
-		index++;
+		shift++;
 
-		if (index >= numLEDs)
-			index = 0;
+		if (shift >= numLEDs)
+			shift = 0;
 
 
 	}

@@ -145,24 +145,22 @@ int intloop(int index)
 
 void DrawRainbow(uint8_t shift){
 	uint8_t i = 0;
-	uint8_t hn = 359 / (numLEDs - 1);
 
 	for (i = 0; i < numLEDs; i++)
 	{
-		int h = hn * i;
-		int a = (h % 120) * 4;
+		int a = i % 24 * 21;
 		uint8_t x = 255 - abs(a - 255);
 
 		uint8_t ii = (i + shift) % numLEDs;
-		if (h < 60)
+		if (i < 12)
 			SetPixel(ii, 255, x, 0);
-		else if (h < 120)
+		else if (i < 24)
 			SetPixel(ii, x, 255, 0);
-		else if (h < 180)
+		else if (i < 36)
 			SetPixel(ii, 0, 255, x);
-		else if (h < 240)
+		else if (i < 48)
 			SetPixel(ii, 0, x, 255);
-		else if (h < 320)
+		else if (i < 60)
 			SetPixel(ii, x, 0, 255);
 		else
 			SetPixel(ii, 255, 0, x);

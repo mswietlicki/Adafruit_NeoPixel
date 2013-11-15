@@ -148,20 +148,33 @@ int main(void){
 	uint8_t index = 0;
 
 	while (1){
-		SetPixel(index, 255, 0, 0);
-		SetPixel(intloop(index + 20), 0, 255, 0);
-		SetPixel(intloop(index + 40), 255, 255, 0);
-		SetPixel(intloop(index + 60), 255, 255, 255);
+
+		uint8_t i = 0;
+		uint8_t hn = 359 / numLEDs;
+
+		for (i = 0; i < numLEDs; i++)
+		{
+			int h = hn * i;
+			int a = (h % 120) * 4;
+			uint8_t x = 255 - abs(a - 255);
+
+			if (h < 60)
+				SetPixel(i + index, 255, x, 0);
+			else if (h < 120)
+				SetPixel(i + index, x, 255, 0);
+			else if (h < 180)
+				SetPixel(i + index, 0, 255, x);
+			else if (h < 240)
+				SetPixel(i + index, 0, x, 255);
+			else if (h < 320)
+				SetPixel(i + index, x, 0, 255);
+			else
+				SetPixel(i + index, 255, 0, x);
+		}
+
 		Show();
 
 		_delay_ms(1);
-
-		SetPixel(index, 0, 0, 0);
-		SetPixel(intloop(index + 20), 0, 0, 0);
-		SetPixel(intloop(index + 40), 0, 0, 0);
-		SetPixel(intloop(index + 60), 0, 0, 0);
-
-		Show();
 
 		index++;
 

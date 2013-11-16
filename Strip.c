@@ -171,7 +171,7 @@ void DrawRainbow(uint8_t shift){
 			SetPixel(ii, 255, 0, x);
 	}
 
-	_delay_ms(1);
+	_delay_ms(5);
 }
 
 void DrawFlag(uint8_t shift){

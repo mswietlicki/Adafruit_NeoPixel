@@ -176,17 +176,47 @@ void DrawRainbow(uint8_t shift){
 
 void DrawFlag(uint8_t shift){
 	uint8_t i = 0;
-	
+
 	for (i = 0; i < numLEDs; i++)
 	{
 		//uint8_t ii = (i + shift) % numLEDs;
-		if (i <(numLEDs / 2))
-			SetPixel(i, 255, 255, 255);
+		if (i < (numLEDs / 2))
+			SetPixel(i, 0, 0, 255);
 		else
 			SetPixel(i, 255, 0, 0);
 	}
 
 	_delay_ms(1);
+}
+
+void DrawFlag2(uint8_t shift){
+	uint8_t i = 0;
+
+	for (i = 0; i < numLEDs; i++)
+	{
+		uint8_t ii = (i + shift) % numLEDs;
+		if (i < (numLEDs / 2))
+			SetPixel(ii, 0, 0, 255);
+		else
+			SetPixel(ii, 255, 0, 0);
+	}
+
+	_delay_ms(1);
+}
+
+void DrawDots(uint8_t shift){
+	
+	SetPixel((shift) % numLEDs, 255, 0, 0);
+	SetPixel((shift + 10) % numLEDs, 255, 0, 0);
+	SetPixel((shift + 20) % numLEDs, 255, 0, 0);
+
+	Show();
+
+	_delay_ms(1);
+
+	SetPixel((shift) % numLEDs, 0, 0, 0);
+	SetPixel((shift + 10) % numLEDs, 0, 0, 0);
+	SetPixel((shift + 20) % numLEDs, 0, 0, 0);
 }
 
 int main(void){
@@ -199,8 +229,15 @@ int main(void){
 
 		if (mode == 0)
 			DrawRainbow(shift);
-		else
+		else if (mode == 1)
 			DrawFlag(shift);
+		else if (mode == 2)
+			DrawFlag2(shift);
+		else if (mode == 3)
+			DrawDots(shift);
+		else if (mode == 4)
+			DrawRainbow(0);
+
 		Show();
 
 		shift++;
@@ -209,13 +246,15 @@ int main(void){
 			shift = 0;
 
 		uint8_t input = GetBit(PIND, InputPin);
-		if (input != inputState)
+		if (input != inputState && inputState == 0)
 		{
-			inputState = input;
+
 			mode++;
-			if (mode >= 2)
+			if (mode >= 5)
 				mode = 0;
 		}
+
+		inputState = input;
 
 	}
 	return 0;

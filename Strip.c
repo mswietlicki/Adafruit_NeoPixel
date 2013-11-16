@@ -4,9 +4,12 @@
 #include <util/delay.h>
 #include <stdlib.h>
 
+#define GetBit(var,pos) ((var) & (1<<(pos)))
+
 #define numLEDs 72
 #define numBytes 216
 #define LEDPin 4
+#define InputPin 3
 
 //GRB
 uint8_t pixels[numBytes] =
@@ -25,10 +28,12 @@ void SetPixel(uint8_t i, uint8_t r, uint8_t g, uint8_t b){
 }
 
 void Begin(){
-	PORTD &= ~pinMask;
 	DDRD |= pinMask;
+	PORTD &= ~pinMask;
 
-
+	//Input
+	DDRD &= ~_BV(InputPin);
+	PORTD |= _BV(InputPin);
 }
 
 inline void Show(){
@@ -165,24 +170,52 @@ void DrawRainbow(uint8_t shift){
 		else
 			SetPixel(ii, 255, 0, x);
 	}
+
+	_delay_ms(1);
+}
+
+void DrawFlag(uint8_t shift){
+	uint8_t i = 0;
+	
+	for (i = 0; i < numLEDs; i++)
+	{
+		//uint8_t ii = (i + shift) % numLEDs;
+		if (i <(numLEDs / 2))
+			SetPixel(i, 255, 255, 255);
+		else
+			SetPixel(i, 255, 0, 0);
+	}
+
+	_delay_ms(1);
 }
 
 int main(void){
 	Begin();
 	uint8_t shift = 0;
+	uint8_t inputState = 0;
+	uint8_t mode = 0;
 
 	while (1){
 
-		DrawRainbow(shift);
+		if (mode == 0)
+			DrawRainbow(shift);
+		else
+			DrawFlag(shift);
 		Show();
-
-		_delay_ms(1);
 
 		shift++;
 
 		if (shift >= numLEDs)
 			shift = 0;
 
+		uint8_t input = GetBit(PIND, InputPin);
+		if (input != inputState)
+		{
+			inputState = input;
+			mode++;
+			if (mode >= 2)
+				mode = 0;
+		}
 
 	}
 	return 0;

@@ -209,6 +209,10 @@ void DrawDots(uint8_t shift){
 	SetPixel((shift) % numLEDs, 255, 0, 0);
 	SetPixel((shift + 10) % numLEDs, 255, 0, 0);
 	SetPixel((shift + 20) % numLEDs, 255, 0, 0);
+	SetPixel((shift + 30) % numLEDs, 255, 0, 0);
+	SetPixel((shift + 40) % numLEDs, 255, 0, 0);
+	SetPixel((shift + 50) % numLEDs, 255, 0, 0);
+	SetPixel((shift + 60) % numLEDs, 255, 0, 0);
 
 	Show();
 
@@ -217,6 +221,10 @@ void DrawDots(uint8_t shift){
 	SetPixel((shift) % numLEDs, 0, 0, 0);
 	SetPixel((shift + 10) % numLEDs, 0, 0, 0);
 	SetPixel((shift + 20) % numLEDs, 0, 0, 0);
+	SetPixel((shift + 30) % numLEDs, 0, 0, 0);
+	SetPixel((shift + 40) % numLEDs, 0, 0, 0);
+	SetPixel((shift + 50) % numLEDs, 0, 0, 0);
+	SetPixel((shift + 60) % numLEDs, 0, 0, 0);
 }
 
 int main(void){

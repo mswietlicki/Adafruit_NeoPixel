@@ -273,6 +273,7 @@ int main(void){
 			case 4: DrawRainbow(0); break;
 			case 5: DrawRainbow(shift); _delay_ms(20); break;
 			case 6: DrawRainbow(shift); _delay_ms(5); break;
+			case 7: DrawColors(shift); _delay_ms(50); break;
 			case 7: DrawColors(shift); _delay_ms(5); break;
 			default: mode = 0; break;
 		}

@@ -148,7 +148,7 @@ int intloop(int index)
 		return index - numLEDs;
 }
 
-void DrawRainbow(int shift){
+void DrawRainbow(int shift, uint8_t delay){
 	uint8_t i = 0;
 
 	for (i = 0; i < numLEDs; i++)
@@ -170,7 +170,32 @@ void DrawRainbow(int shift){
 			SetPixel(ii, 255, 0, x);
 	}
 
-	_delay_ms(5);
+	_delay_ms(delay);
+}
+
+void DrawColors(int shift, uint8_t delay){
+	uint8_t i = 0;
+
+	for (i = 0; i < numLEDs; i++)
+	{
+		int a = i % 24 * 21;
+		uint8_t x = 255 - abs(a - 255);
+
+		if (shift < 12)
+			SetPixel(i, 255, x, 0);
+		else if (shift < 24)
+			SetPixel(i, x, 255, 0);
+		else if (shift < 36)
+			SetPixel(i, 0, 255, x);
+		else if (shift < 48)
+			SetPixel(i, 0, x, 255);
+		else if (shift < 60)
+			SetPixel(i, x, 0, 255);
+		else
+			SetPixel(i, 255, 0, x);
+	}
+
+	_delay_ms(delay);
 }
 
 void DrawRed(){
@@ -249,26 +274,12 @@ int main(void){
 			case 1: DrawFlag(shift); break;
 			case 2: DrawFlag2(shift); break;
 			case 3: DrawDots(shift); break;
-			case 4: DrawRainbow(0); break;
-			case 5: DrawRainbow(shift); break;
-			case 6: DrawRainbow(-shift); break;
+			case 4: DrawRainbow(0, 5); break;
+			case 5: DrawRainbow(shift, 20); break;
+			case 6: DrawRainbow(shift, 5); break;
+			case 7: DrawColors(shift, 5); break;
 			default: mode = 0; break;
 		}
-
-		//if (mode == 0)
-		//	DrawRed();
-		//else if (mode == 1)
-		//	DrawFlag(shift);
-		//else if (mode == 2)
-		//	DrawFlag2(shift);
-		//else if (mode == 3)
-		//	DrawDots(shift);
-		//else if (mode == 4)
-		//	DrawRainbow(0);
-		//else if (mode == 5)
-		//	DrawRainbow(shift);
-		//else if (mode == 6)
-		//	DrawRainbow(-shift);
 
 		Show();
 
@@ -278,7 +289,7 @@ int main(void){
 			shift = 0;
 
 		uint8_t input = GetBit(PIND, InputPin);
-		if (input != inputState && inputState == 0)
+		if (input != inputState && input > 0)
 		{
 			mode++;
 		}

@@ -274,6 +274,7 @@ int main(void){
 			case 5: DrawRainbow(shift); _delay_ms(20); break;
 			case 6: DrawRainbow(shift); _delay_ms(5); break;
 			case 7: DrawRainbow(shift); _delay_ms(1); break;
+			case 7: DrawRainbow(shift); break;
 			case 8: DrawColors(shift); _delay_ms(50); break;
 			case 9: DrawColors(shift); _delay_ms(5); break;
 			case 10: DrawColors(shift); _delay_ms(1); break;

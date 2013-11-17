@@ -148,7 +148,7 @@ int intloop(int index)
 		return index - numLEDs;
 }
 
-void DrawRainbow(int shift, uint8_t delay){
+void DrawRainbow(int shift){
 	uint8_t i = 0;
 
 	for (i = 0; i < numLEDs; i++)
@@ -169,11 +169,9 @@ void DrawRainbow(int shift, uint8_t delay){
 		else
 			SetPixel(ii, 255, 0, x);
 	}
-
-	_delay_ms(delay);
 }
 
-void DrawColors(int shift, uint8_t delay){
+void DrawColors(int shift){
 	uint8_t i = 0;
 
 	for (i = 0; i < numLEDs; i++)
@@ -194,8 +192,6 @@ void DrawColors(int shift, uint8_t delay){
 		else
 			SetPixel(i, 255, 0, x);
 	}
-
-	_delay_ms(delay);
 }
 
 void DrawRed(){
@@ -274,10 +270,10 @@ int main(void){
 			case 1: DrawFlag(shift); break;
 			case 2: DrawFlag2(shift); break;
 			case 3: DrawDots(shift); break;
-			case 4: DrawRainbow(0, 5); break;
-			case 5: DrawRainbow(shift, 20); break;
-			case 6: DrawRainbow(shift, 5); break;
-			case 7: DrawColors(shift, 5); break;
+			case 4: DrawRainbow(0); break;
+			case 5: DrawRainbow(shift); _delay_ms(20); break;
+			case 6: DrawRainbow(shift); _delay_ms(5); break;
+			case 7: DrawColors(shift); _delay_ms(5); break;
 			default: mode = 0; break;
 		}
 
@@ -295,7 +291,6 @@ int main(void){
 		}
 
 		inputState = input;
-
 	}
 	return 0;
 }

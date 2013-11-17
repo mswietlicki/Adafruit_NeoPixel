@@ -148,15 +148,14 @@ int intloop(int index)
 		return index - numLEDs;
 }
 
-void DrawRainbow(uint8_t shift){
+void DrawRainbow(int shift){
 	uint8_t i = 0;
 
 	for (i = 0; i < numLEDs; i++)
 	{
 		int a = i % 24 * 21;
 		uint8_t x = 255 - abs(a - 255);
-
-		uint8_t ii = (i + shift) % numLEDs;
+		uint8_t ii = abs((i + shift) % numLEDs);
 		if (i < 12)
 			SetPixel(ii, 255, x, 0);
 		else if (i < 24)
@@ -174,12 +173,22 @@ void DrawRainbow(uint8_t shift){
 	_delay_ms(5);
 }
 
+void DrawRed(){
+	uint8_t i = 0;
+
+	for (i = 0; i < numLEDs; i++)
+	{
+		SetPixel(i, 0, 0, 0);
+	}
+
+	_delay_ms(1);
+}
+
 void DrawFlag(uint8_t shift){
 	uint8_t i = 0;
 
 	for (i = 0; i < numLEDs; i++)
 	{
-		//uint8_t ii = (i + shift) % numLEDs;
 		if (i < (numLEDs / 2))
 			SetPixel(i, 0, 0, 255);
 		else
@@ -205,7 +214,7 @@ void DrawFlag2(uint8_t shift){
 }
 
 void DrawDots(uint8_t shift){
-	
+
 	SetPixel((shift) % numLEDs, 255, 0, 0);
 	SetPixel((shift + 10) % numLEDs, 255, 0, 0);
 	SetPixel((shift + 20) % numLEDs, 255, 0, 0);
@@ -235,16 +244,31 @@ int main(void){
 
 	while (1){
 
-		if (mode == 0)
-			DrawRainbow(shift);
-		else if (mode == 1)
-			DrawFlag(shift);
-		else if (mode == 2)
-			DrawFlag2(shift);
-		else if (mode == 3)
-			DrawDots(shift);
-		else if (mode == 4)
-			DrawRainbow(0);
+		switch (mode){
+			case 0: DrawRed(); break;
+			case 1: DrawFlag(shift); break;
+			case 2: DrawFlag2(shift); break;
+			case 3: DrawDots(shift); break;
+			case 4: DrawRainbow(0); break;
+			case 5: DrawRainbow(shift); break;
+			case 6: DrawRainbow(-shift); break;
+			default: mode = 0; break;
+		}
+
+		//if (mode == 0)
+		//	DrawRed();
+		//else if (mode == 1)
+		//	DrawFlag(shift);
+		//else if (mode == 2)
+		//	DrawFlag2(shift);
+		//else if (mode == 3)
+		//	DrawDots(shift);
+		//else if (mode == 4)
+		//	DrawRainbow(0);
+		//else if (mode == 5)
+		//	DrawRainbow(shift);
+		//else if (mode == 6)
+		//	DrawRainbow(-shift);
 
 		Show();
 
@@ -254,12 +278,9 @@ int main(void){
 			shift = 0;
 
 		uint8_t input = GetBit(PIND, InputPin);
-		if (input != inputState && inputState == 0)
+		if (input != inputState && inputState == 1)
 		{
-
 			mode++;
-			if (mode >= 5)
-				mode = 0;
 		}
 
 		inputState = input;

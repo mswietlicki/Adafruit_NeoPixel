@@ -273,11 +273,13 @@ int main(void){
 			case 4: DrawRainbow(0); break;
 			case 5: DrawRainbow(shift); _delay_ms(20); break;
 			case 6: DrawRainbow(shift); _delay_ms(5); break;
-			case 7: DrawColors(shift); _delay_ms(50); break;
-			case 8: DrawColors(shift); _delay_ms(5); break;
+			case 7: DrawRainbow(shift); _delay_ms(1); break;
+			case 8: DrawColors(shift); _delay_ms(50); break;
+			case 9: DrawColors(shift); _delay_ms(5); break;
+			case 10: DrawColors(shift); _delay_ms(1); break;
+			case 11: DrawColors(shift); break;
 			default: mode = 0; break;
 		}
-
 		Show();
 
 		shift++;
@@ -286,10 +288,8 @@ int main(void){
 			shift = 0;
 
 		uint8_t input = GetBit(PIND, InputPin);
-		if (input != inputState && input > 0)
-		{
+		if (input != inputState && input == 0)
 			mode++;
-		}
 
 		inputState = input;
 	}

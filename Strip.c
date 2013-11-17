@@ -176,7 +176,7 @@ void DrawColors(int shift){
 
 	for (i = 0; i < numLEDs; i++)
 	{
-		int a = i % 24 * 21;
+		int a = shift % 24 * 21;
 		uint8_t x = 255 - abs(a - 255);
 
 		if (shift < 12)

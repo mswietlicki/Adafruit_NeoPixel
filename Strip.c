@@ -178,7 +178,7 @@ void DrawRed(){
 
 	for (i = 0; i < numLEDs; i++)
 	{
-		SetPixel(i, 0, 0, 0);
+		SetPixel(i, 255, 0, 0);
 	}
 
 	_delay_ms(1);
@@ -278,7 +278,7 @@ int main(void){
 			shift = 0;
 
 		uint8_t input = GetBit(PIND, InputPin);
-		if (input != inputState && inputState == 1)
+		if (input != inputState && inputState == 0)
 		{
 			mode++;
 		}

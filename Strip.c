@@ -12,10 +12,7 @@
 #define InputPin 3
 
 //GRB
-uint8_t pixels[numBytes] =
-{
-	0
-};
+uint8_t pixels[numBytes] = { 0 };
 
 uint8_t pin = LEDPin;
 uint8_t pinMask = _BV(LEDPin);
@@ -140,8 +137,7 @@ inline void Show(){
 		[lo]     "r" (lo));
 }
 
-int intloop(int index)
-{
+int intloop(int index){
 	if (index < numLEDs)
 		return index;
 	else
@@ -197,45 +193,38 @@ void DrawColors(int shift){
 void DrawRed(){
 	uint8_t i = 0;
 
-	for (i = 0; i < numLEDs; i++)
-	{
+	for (i = 0; i < numLEDs; i++){
 		SetPixel(i, 255, 0, 0);
 	}
-
 	_delay_ms(1);
 }
 
 void DrawFlag(uint8_t shift){
 	uint8_t i = 0;
 
-	for (i = 0; i < numLEDs; i++)
-	{
+	for (i = 0; i < numLEDs; i++){
 		if (i < (numLEDs / 2))
 			SetPixel(i, 0, 0, 255);
 		else
 			SetPixel(i, 255, 0, 0);
 	}
-
 	_delay_ms(1);
 }
 
 void DrawFlag2(uint8_t shift){
 	uint8_t i = 0;
 
-	for (i = 0; i < numLEDs; i++)
-	{
+	for (i = 0; i < numLEDs; i++){
 		uint8_t ii = (i + shift) % numLEDs;
 		if (i < (numLEDs / 2))
 			SetPixel(ii, 0, 0, 255);
 		else
 			SetPixel(ii, 255, 0, 0);
 	}
-
 	_delay_ms(1);
 }
 
 void DrawDots(uint8_t shift){
-
 	SetPixel((shift) % numLEDs, 255, 0, 0);
 	SetPixel((shift + 10) % numLEDs, 255, 0, 0);
 	SetPixel((shift + 20) % numLEDs, 255, 0, 0);
@@ -245,7 +234,6 @@ void DrawDots(uint8_t shift){
 	SetPixel((shift + 60) % numLEDs, 255, 0, 0);
 
 	Show();
-
 	_delay_ms(1);
 
 	SetPixel((shift) % numLEDs, 0, 0, 0);
@@ -264,25 +252,24 @@ int main(void){
 	uint8_t mode = 0;
 
 	while (1){
-
 		switch (mode){
-			case 0: DrawRed(); break;
-			case 1: DrawFlag(shift); break;
-			case 2: DrawFlag2(shift); break;
-			case 3: DrawDots(shift); break;
-			case 4: DrawRainbow(0); break;
-			case 5: DrawRainbow(shift); _delay_ms(20); break;
-			case 6: DrawRainbow(shift); _delay_ms(5); break;
-			case 7: DrawRainbow(shift); _delay_ms(1); break;
-			case 8: DrawRainbow(shift); break;
-			case 9: DrawColors(shift); _delay_ms(50); break;
-			case 10: DrawColors(shift); _delay_ms(5); break;
-			case 11: DrawColors(shift); _delay_ms(1); break;
-			case 12: DrawColors(shift); break;
-			default: mode = 0; break;
+			case 0:		DrawRed();							break;
+			case 1:		DrawFlag(shift);					break;
+			case 2:		DrawFlag2(shift);					break;
+			case 3:		DrawDots(shift);					break;
+			case 4:		DrawRainbow(0);						break;
+			case 5:		DrawRainbow(shift); _delay_ms(20);	break;
+			case 6:		DrawRainbow(shift); _delay_ms(5);	break;
+			case 7:		DrawRainbow(shift); _delay_ms(1);	break;
+			case 8:		DrawRainbow(shift);					break;
+			case 9:		DrawColors(shift); _delay_ms(50);	break;
+			case 10:	DrawColors(shift); _delay_ms(5);	break;
+			case 11:	DrawColors(shift); _delay_ms(1);	break;
+			case 12:	DrawColors(shift);					break;
+			default:	mode = 0;							break;
 		}
-		Show();
 
+		Show();
 		shift++;
 
 		if (shift >= numLEDs)

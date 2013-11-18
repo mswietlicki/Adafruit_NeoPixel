@@ -5,4 +5,4 @@ avr-gcc -Os -DF_CPU=8000000UL -mmcu=atmega1284p -c Strip.c
 avr-gcc -mmcu=atmega1284p -o Strip.elf Strip.o
 avr-objcopy -O ihex -R .eeprom Strip.elf Strip.hex
 avr-objcopy -I ihex Strip.hex -O binary Strip.bin
-sudo avrdude -p m1284p -c usbasp -P usb -U lfuse:w:0xa4:m -U hfuse:w:0xd9:m -U flash:w:Strip.hex
+sudo avrdude -p m1284p -c usbasp -P usb -U lfuse:w:0xd2:m -U hfuse:w:0x99:m -U efuse:w:0xfd:m -U flash:w:Strip.hex
